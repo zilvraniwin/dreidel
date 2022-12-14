@@ -41,6 +41,8 @@ class DreidelGame:
          split_players]
 
     def get_player_pot(self, player_string):
+        """Determine whether a starting pot size was provided, and if
+        not, use the default."""
         pot_regex = re.search("(?<=\()[0-9]+", player_string)
         if pot_regex:
             player_name = player_string.split(sep=" (")[0].strip()
@@ -51,14 +53,20 @@ class DreidelGame:
         return player_name, pot_size
 
     def ante(self):
+        """At the start of a round, all players add one to the main pot,
+        or, if they cannot, they are removed from the game."""
         for player in self.players:
             if player.pot > 0:
                 player.pot -= 1
                 self.pot += 1
                 print(f"{player.name}: {player.pot}")
             else:
-                print(f"{player.name} cannot ante up!")
+                print(f"{player.name} cannot ante up. {player.name} is out!")
+                self.players.remove(player.name)
         print(f"\nCurrent pot: {self.pot}")
+
+    def turn(self):
+        pass
 
     def spin_dreidel(self):
         """Spin the dreidel! Return a double of the result and its
