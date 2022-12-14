@@ -15,6 +15,19 @@ def spin_dreidel():
 
 
 class Player:
-    def __init__(self, name, pot_size=0):
+    
+    def __init__(self, name, pot_size=10):
+        """Initialize a dreidel player. Give them a name and a pot size,
+        which defaults to 10.
+        """
         self.name = name
         self.pot_size = pot_size
+
+
+class DreidelGame:
+
+    def __init__(self, players):
+        """Initialize a dreidel game, passing a list of player objects."""
+        self.players = players
+
+    
