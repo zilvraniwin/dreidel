@@ -1,17 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import random as rd
-
-
-def spin_dreidel():
-    results = [
-        ("nun", "Nun: Nothing! Next!"),
-        ("gimel", "Gimel: Gimme all the gelt!"),
-        ("hey", "Hey: Take half!"),
-        ("shin", "Shin: Put one in!")
-    ]
-    spin = rd.randint(0, 3)
-    return results[spin]
 
 
 class Player:
@@ -29,5 +18,17 @@ class DreidelGame:
     def __init__(self, players):
         """Initialize a dreidel game, passing a list of player objects."""
         self.players = players
+        self.sides = [
+            ("nun", "Nun: Nothing! Next!"),
+            ("gimel", "Gimel: Gimme all the gelt!"),
+            ("hey", "Hey: Take half!"),
+            ("shin", "Shin: Put one in!")
+        ]
+        self.current_state = None
 
-    
+    def spin_dreidel(self):
+        """Spin the dreidel! Return a double of the result and its
+        corresponding text.
+        """
+        spin = rd.randint(0, 3)
+        self.current_state = self.sides[spin]
