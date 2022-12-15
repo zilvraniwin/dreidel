@@ -37,6 +37,7 @@ class DreidelGame:
         self.pot = starting_pot
         self.ante_amount = ante
         self.position = 0
+        self.out = []
 
     def parse_input(self):
         """Parse the user-given input into player objects."""
@@ -62,22 +63,28 @@ class DreidelGame:
         ante_string = "{name} puts in {amount}. {name}'s pot: {pot_size}"
         print("Ante up!")
         for player in self.players:
-            if player.pot > self.ante_amount:
+            if player.pot >= self.ante_amount:
+                # If they have enough, put in the regular ante amount.
                 player.pot -= self.ante_amount
                 self.pot += self.ante_amount
                 print(ante_string.format(name=player.name,
                  amount=self.ante_amount,
                  pot_size=player.pot))
             elif player.pot > 0:
+                # If they don't have the full ante amount, put in what they have.
                 amount_added = player.pot
                 self.pot += player.pot
                 player.pot = 0
                 print(ante_string.format(name=player.name,
                  amount=amount_added,
                  pot_size=player.pot))
-            else:
+            elif player.pot == 0:
                 print(f"{player.name} cannot ante up. {player.name} is out!")
-                self.players.remove(player)
+                # self.players.remove(player)
+                self.out.append(player)
+            else:
+                print(f"Encountered an issue on {player.name}.")
+        # self.players = [player for player in self.players if player not in self.out]
         print(f"\nCurrent pot: {self.pot}")
 
     def turn(self, player):
@@ -116,10 +123,11 @@ class DreidelGame:
     def round(self):
         print("\nNew round.")
         self.ante()
-        # for player in self.players:
-        #     self.turn(player)
         while self.pot > 0:
-            self.turn(self.players[self.position])
+            if self.players[self.position] not in self.out:
+                self.turn(self.players[self.position])
+            else:
+                print(f"\nSkipping {self.players[self.position].name}...")
             if self.position < len(self.players) - 1:
                 self.position += 1
             else:
