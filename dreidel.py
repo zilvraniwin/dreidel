@@ -16,7 +16,8 @@ class Player:
 
 class DreidelGame:
 
-    def __init__(self, input_text=None, default_player_pot=10, starting_pot=0):
+    def __init__(self, input_text=None, default_player_pot=10, starting_pot=0,
+     ante=1):
         """Initialize a dreidel game, starting with a user-given list of
         players and a default pot size per player of 10 gelt.
         """
@@ -34,6 +35,7 @@ class DreidelGame:
         self.default_player_pot = default_player_pot
         self.parse_input()
         self.pot = starting_pot
+        self.ante_amount = ante
         self.position = 0
 
     def parse_input(self):
@@ -57,15 +59,25 @@ class DreidelGame:
     def ante(self):
         """At the start of a round, all players add one to the main pot,
         or, if they cannot, they are removed from the game."""
+        ante_string = "{name} puts in {amount}. {name}'s pot: {pot_size}"
         print("Ante up!")
         for player in self.players:
-            if player.pot > 0:
-                player.pot -= 1
-                self.pot += 1
-                print(f"{player.name}: {player.pot}")
+            if player.pot > self.ante_amount:
+                player.pot -= self.ante_amount
+                self.pot += self.ante_amount
+                print(ante_string.format(name=player.name,
+                 amount=self.ante_amount,
+                 pot_size=player.pot))
+            elif player.pot > 0:
+                amount_added = player.pot
+                self.pot += player.pot
+                player.pot = 0
+                print(ante_string.format(name=player.name,
+                 amount=amount_added,
+                 pot_size=player.pot))
             else:
                 print(f"{player.name} cannot ante up. {player.name} is out!")
-                self.players.remove(player.name)
+                self.players.remove(player)
         print(f"\nCurrent pot: {self.pot}")
 
     def turn(self, player):
