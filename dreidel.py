@@ -70,6 +70,9 @@ class DreidelGame:
         print(f"\nCurrent pot: {self.pot}")
 
     def turn(self, player):
+        """Have a player spin the dreidel; adjust their pot and the
+        group pot accordingly.
+        """
         print(f"\n{player.name}'s turn.")
         print(f"{player.name} spins the dreidel...")
         self.spin_dreidel()
@@ -81,6 +84,7 @@ class DreidelGame:
             player.pot += self.pot
             self.pot = 0
         elif side == "hey":
+            # Player gets half rounded up on a hey.
             if self.pot % 2 == 0:
                 player.pot += self.pot // 2
                 self.pot //= 2
@@ -107,8 +111,6 @@ class DreidelGame:
 
 
     def spin_dreidel(self):
-        """Spin the dreidel! Return a double of the result and its
-        corresponding text.
-        """
+        """Spin the dreidel!"""
         spin = rd.randint(0, 3)
         self.current_state = self.sides[spin]
