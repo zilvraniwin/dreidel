@@ -34,6 +34,7 @@ class DreidelGame:
         self.default_player_pot = default_player_pot
         self.parse_input()
         self.pot = starting_pot
+        self.position = 0
 
     def parse_input(self):
         """Parse the user-given input into player objects."""
@@ -103,9 +104,15 @@ class DreidelGame:
     def round(self):
         print("\nNew round.")
         self.ante()
-        for player in self.players:
-            self.turn(player)
-        print("\nEnd of round.")
+        # for player in self.players:
+        #     self.turn(player)
+        while self.pot > 0:
+            self.turn(self.players[self.position])
+            if self.position < len(self.players) - 1:
+                self.position += 1
+            else:
+                self.position = 0
+        print("\nPot is empty. End of round.")
 
     def spin_dreidel(self):
         """Spin the dreidel!"""
