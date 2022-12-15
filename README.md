@@ -65,3 +65,5 @@ End of round.
 ```
 
 Continue until there's only one player left who gets the whole pot, or quit and mark down the pot sizes to come back to later.
+
+In theory, you can also use `DreidelGame.turn()` to handle turns manually, passing it an object of the `Player` class.
