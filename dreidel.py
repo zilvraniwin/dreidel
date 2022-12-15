@@ -17,7 +17,7 @@ class Player:
 
 class DreidelGame:
 
-    def __init__(self, input_text, default_player_pot=10, starting_pot=0):
+    def __init__(self, input_text=None, default_player_pot=10, starting_pot=0):
         """Initialize a dreidel game, starting with a user-given list of
         players and a default pot size per player of 10 gelt.
         """
@@ -29,7 +29,10 @@ class DreidelGame:
             ("shin", "Shin: Put one in!")
         ]
         self.current_state = None
-        self.input_text = input_text
+        if input_text:
+            self.input_text = input_text
+        else:
+            self.input_text = input("Who's playing?\n")
         self.default_player_pot = default_player_pot
         self.parse_input()
         self.pot = starting_pot
