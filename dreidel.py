@@ -65,8 +65,35 @@ class DreidelGame:
                 self.players.remove(player.name)
         print(f"\nCurrent pot: {self.pot}")
 
-    def turn(self):
-        pass
+    def turn(self, player):
+        print(f"{player.name}'s turn.")
+        print(f"{player.name} spins the dreidel...")
+        self.spin_dreidel()
+        side = self.current_state[0]
+        print(self.current_state[1])
+        if side == "nun":
+            None
+        elif side == "gimel":
+            player.pot += self.pot
+            self.pot = 0
+        elif side == "hey":
+            if self.pot % 2 == 0:
+                player.pot += self.pot / 2
+                self.pot //= 2
+            else:
+                player.pot = self.pot // 2 + 1
+                self.pot //= 2
+        elif side == "shin":
+            if player.pot > 0:
+                player.pot -= 1
+                self.pot += 1
+            else:
+                print(f"{player.name} cannot put one in.")
+        else:
+            print("Well that's not a side I'm familiar with.")
+        print(f"{player.name}: {player.pot}")
+        print(f"Current pot: {self.pot}")
+
 
     def spin_dreidel(self):
         """Spin the dreidel! Return a double of the result and its
