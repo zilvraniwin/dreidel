@@ -20,7 +20,6 @@ class DreidelGame:
         """Initialize a dreidel game, starting with a user-given list of
         players and a default pot size per player of 10 gelt.
         """
-        # self.players = players
         self.sides = [
             ("nun", "Nun: Nothing! Next!"),
             ("gimel", "Gimel: Gimme all the gelt!"),
@@ -31,7 +30,7 @@ class DreidelGame:
         if input_text:
             self.input_text = input_text
         else:
-            self.input_text = input("Who's playing?\n")
+            self.input_text = input("Who's playing?\n> ")
         self.default_player_pot = default_player_pot
         self.parse_input()
         self.pot = starting_pot
