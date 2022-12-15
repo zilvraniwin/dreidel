@@ -38,6 +38,7 @@ class DreidelGame:
         self.ante_amount = ante
         self.position = 0
         self.out = []
+        self.round_number = 0
 
     def parse_input(self):
         """Parse the user-given input into player objects."""
@@ -80,11 +81,9 @@ class DreidelGame:
                  pot_size=player.pot))
             elif player.pot == 0:
                 print(f"{player.name} cannot ante up. {player.name} is out!")
-                # self.players.remove(player)
                 self.out.append(player)
             else:
                 print(f"Encountered an issue on {player.name}.")
-        # self.players = [player for player in self.players if player not in self.out]
         print(f"\nCurrent pot: {self.pot}")
 
     def turn(self, player):
@@ -121,7 +120,8 @@ class DreidelGame:
         print(f"\nCurrent pot: {self.pot}")
 
     def round(self):
-        print("\nNew round.")
+        self.round_number += 1
+        print(f"\nRound {self.round_number}.")
         self.ante()
         while self.pot > 0:
             if self.players[self.position] not in self.out:
