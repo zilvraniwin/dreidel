@@ -116,7 +116,7 @@ class DreidelGame:
                 print(f"{player.name} cannot put one in.")
         else:
             print("Well that's not a side I'm familiar with.")
-        print(f"{player.name}: {player.pot}")
+        print(f"{player.name}'s pot: {player.pot}")
         print(f"\nCurrent pot: {self.pot}")
 
     def round(self):
