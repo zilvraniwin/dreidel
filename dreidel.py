@@ -12,7 +12,6 @@ class Player:
         """
         self.name = name
         self.pot = pot
-        # print(self.name, self.pot_size)
 
 
 class DreidelGame:
@@ -108,7 +107,6 @@ class DreidelGame:
         for player in self.players:
             self.turn(player)
         print("\nEnd of round.")
-
 
     def spin_dreidel(self):
         """Spin the dreidel!"""
