@@ -55,6 +55,7 @@ class DreidelGame:
     def ante(self):
         """At the start of a round, all players add one to the main pot,
         or, if they cannot, they are removed from the game."""
+        print("Ante up!")
         for player in self.players:
             if player.pot > 0:
                 player.pot -= 1
@@ -93,6 +94,13 @@ class DreidelGame:
             print("Well that's not a side I'm familiar with.")
         print(f"{player.name}: {player.pot}")
         print(f"Current pot: {self.pot}")
+
+    def round(self):
+        print("\nNew round.")
+        self.ante()
+        for player in self.players:
+            self.turn(player)
+        print("\nEnd of round.")
 
 
     def spin_dreidel(self):
