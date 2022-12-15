@@ -85,7 +85,7 @@ class DreidelGame:
                 player.pot += self.pot // 2
                 self.pot //= 2
             else:
-                player.pot = self.pot // 2 + 1
+                player.pot += self.pot // 2 + 1
                 self.pot //= 2
         elif side == "shin":
             if player.pot > 0:
